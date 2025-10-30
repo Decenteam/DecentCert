@@ -8,6 +8,28 @@ export default defineConfig(({ mode }) => {
       server: {
         port: 3000,
         host: '0.0.0.0',
+        proxy: {
+          '/api/vc': {
+            target: 'https://issuer-sandbox.wallet.gov.tw/',
+            changeOrigin: true,
+            rewrite: (path) => path.replace(/^\/api\/vc/, ''),
+            configure: (proxy, options) => {
+              proxy.on('proxyReq', (proxyReq) => {
+                proxyReq.setHeader('Access-Token', env.VC_API_KEY);
+              });
+            }
+          },
+          '/api/vp': {
+            target: 'https://verifier-sandbox.wallet.gov.tw/',
+            changeOrigin: true,
+            rewrite: (path) => path.replace(/^\/api\/vp/, ''),
+            configure: (proxy, options) => {
+              proxy.on('proxyReq', (proxyReq) => {
+                proxyReq.setHeader('Access-Token', env.VP_API_KEY);
+              });
+            }
+          }
+        }
       },
       plugins: [react()],
       define: {
