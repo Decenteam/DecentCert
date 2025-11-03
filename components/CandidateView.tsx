@@ -104,20 +104,6 @@ const CandidateView: React.FC<CandidateViewProps> = ({ onNewResume }) => {
           </div>
           
           <div className="bg-gray-800 p-6 rounded-lg shadow-md">
-            <h3 className="text-xl font-semibold mb-4 text-cyan-400 border-b border-gray-700 pb-2">工作經歷</h3>
-            {formData.experience.map((exp, index) => (
-              <div key={exp.id} className="space-y-3 mb-4 p-4 border border-gray-700 rounded-md relative">
-                <input type="text" placeholder="職位" value={exp.title} onChange={e => handleDynamicChange(index, e, 'title', 'experience')} className="w-full bg-gray-700 border border-gray-600 rounded p-2 focus:ring-2 focus:ring-cyan-500 focus:outline-none" />
-                <input type="text" placeholder="公司" value={exp.company} onChange={e => handleDynamicChange(index, e, 'company', 'experience')} className="w-full bg-gray-700 border border-gray-600 rounded p-2 focus:ring-2 focus:ring-cyan-500 focus:outline-none" />
-                <input type="text" placeholder="期間 (e.g., 2020/01 - 2022/12)" value={exp.duration} onChange={e => handleDynamicChange(index, e, 'duration', 'experience')} className="w-full bg-gray-700 border border-gray-600 rounded p-2 focus:ring-2 focus:ring-cyan-500 focus:outline-none" />
-                <textarea placeholder="工作描述" value={exp.description} onChange={e => handleDynamicChange(index, e, 'description', 'experience')} rows={3} className="w-full bg-gray-700 border border-gray-600 rounded p-2 focus:ring-2 focus:ring-cyan-500 focus:outline-none" />
-                {formData.experience.length > 1 && <button type="button" onClick={() => removeDynamicItem(exp.id, 'experience')} className="absolute top-2 right-2 text-red-400 hover:text-red-600">&times;</button>}
-              </div>
-            ))}
-            <button type="button" onClick={() => addDynamicItem('experience')} className="text-cyan-400 hover:text-cyan-300">+ 新增經歷</button>
-          </div>
-          
-          <div className="bg-gray-800 p-6 rounded-lg shadow-md">
             <h3 className="text-xl font-semibold mb-4 text-cyan-400 border-b border-gray-700 pb-2">學歷</h3>
             {formData.education.map((edu, index) => (
                 <div key={edu.id} className="space-y-3 mb-4 p-4 border border-gray-700 rounded-md relative">

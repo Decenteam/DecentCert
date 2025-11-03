@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { DocumentCheckIcon } from "./icons";
 import { VPinstance } from "@/util/axios";
-import { verify } from "crypto";
 
 interface CredentialVerificationProps {
   buttonText: string;
@@ -26,7 +25,7 @@ const CredentialVerification: React.FC<CredentialVerificationProps> = ({
 }) => {
   const [qrPresent, setQrPresent] = useState(false);
   const [QRimage, setQRimage] = useState("");
-  const VPlist = ["00000000_the_first_vp"];
+  const VPlist = ["00000000_demovp"];
   async function handleVerification() {
     await VPinstance.get("./api/oidvp/qrcode", {
       params: {

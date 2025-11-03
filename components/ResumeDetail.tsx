@@ -34,22 +34,7 @@ const ResumeDetail: React.FC<ResumeDetailProps> = ({ resume }) => {
       </div>
       
       <div className="space-y-8">
-        <div>
-          <h3 className="flex items-center gap-3 text-2xl font-semibold text-gray-200 mb-4">
-            <BriefcaseIcon className="w-7 h-7 text-cyan-400"/>
-            工作經歷 (Experience)
-          </h3>
-          <div className="space-y-6 border-l-2 border-gray-700 ml-3 pl-6">
-            {resume.experience.map(exp => (
-              <div key={exp.id}>
-                <p className="font-bold text-lg text-white">{exp.title} <span className="text-gray-400 font-normal">@ {exp.company}</span></p>
-                <p className="text-sm text-gray-500 mb-2">{exp.duration}</p>
-                <p className="text-gray-300">{exp.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-        
+       
         <div>
           <h3 className="flex items-center gap-3 text-2xl font-semibold text-gray-200 mb-4">
             <AcademicCapIcon className="w-7 h-7 text-cyan-400"/>
