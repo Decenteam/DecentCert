@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import type { Resume } from '../types';
 import ResumeDetail from './ResumeDetail';
 import { InformationCircleIcon } from './icons';
-
+import { VPinstance } from '@/util/axios';
 interface RecruiterViewProps {
   resumes: Resume[];
 }

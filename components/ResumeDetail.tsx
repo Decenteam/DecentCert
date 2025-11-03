@@ -79,7 +79,7 @@ const ResumeDetail: React.FC<ResumeDetailProps> = ({ resume }) => {
         </div>
       </div>
 
-      <CredentialVerification buttonText="請求認證" />
+      <CredentialVerification buttonText="進行驗證" />
     </div>
   );
 };
