@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import type { Resume } from '../types';
+import type { Resume, VerificationData } from '../types';
 import CredentialVerification from './CredentialVerification';
+import { useResumeStore } from '../store/resumeStore';
 
 interface CandidateViewProps {
-  onNewResume: (resume: Resume) => void;
+  onNewResume?: (resume: Resume) => void;
 }
 
 const initialFormState: Omit<Resume, 'id'> = {
@@ -18,9 +19,11 @@ const initialFormState: Omit<Resume, 'id'> = {
 };
 
 const CandidateView: React.FC<CandidateViewProps> = ({ onNewResume }) => {
+  const addResumeToStore = useResumeStore((state) => state.addResume);
   const [formData, setFormData] = useState<Omit<Resume, 'id'>>(initialFormState);
   const [skillsInput, setSkillsInput] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [verificationData, setVerificationData] = useState<VerificationData | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -70,15 +73,31 @@ const CandidateView: React.FC<CandidateViewProps> = ({ onNewResume }) => {
     setFormData({ ...formData, skills: formData.skills.filter(skill => skill !== skillToRemove) });
   };
 
+  const handleVerificationComplete = (data: VerificationData) => {
+    setVerificationData(data);
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const newResume: Resume = { ...formData, id: `resume-${Date.now()}` };
-    onNewResume(newResume);
+    const newResume: Resume = { 
+      ...formData, 
+      id: `resume-${Date.now()}`,
+      verificationData: verificationData || undefined
+    };
+    
+    // Use prop callback if provided, otherwise add directly to store
+    if (onNewResume) {
+      onNewResume(newResume);
+    } else {
+      addResumeToStore(newResume);
+    }
+    
     setSubmitted(true);
     setTimeout(() => {
         setFormData(initialFormState);
         setSkillsInput('');
         setSubmitted(false);
+        setVerificationData(null);
     }, 3000)
   };
 
@@ -129,13 +148,21 @@ const CandidateView: React.FC<CandidateViewProps> = ({ onNewResume }) => {
             </div>
           </div>
           
+          <CredentialVerification 
+            buttonText="開始認證" 
+            onVerificationComplete={handleVerificationComplete}
+          />
           <button type="submit" className="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-200 text-lg">
             提交履歷
+            {verificationData && (
+              <span className="ml-2 text-green-300">✓ 已認證</span>
+            )}
           </button>
         </form>
       )}
 
-      <CredentialVerification buttonText="開始認證" />
+      
+
     </div>
   );
 };

@@ -8,6 +8,26 @@ export interface Resume {
   experience: Experience[];
   education: Education[];
   skills: string[];
+  transactionID?: string;
+  verificationData?: VerificationData;
+}
+
+export interface VerificationClaim {
+  ename: string;
+  cname: string;
+  value: string;
+}
+
+export interface VerificationCredential {
+  credentialType: string;
+  claims: VerificationClaim[];
+}
+
+export interface VerificationData {
+  data: VerificationCredential[];
+  verifyResult: boolean;
+  resultDescription: string;
+  transactionId: string;
 }
 
 export interface Experience {
