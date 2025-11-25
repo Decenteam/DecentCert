@@ -101,58 +101,102 @@ const CandidateView: React.FC<CandidateViewProps> = ({ onNewResume }) => {
     }, 3000)
   };
 
+  // modern style classes
+  const inputClass = "w-full bg-white/5 border border-white/10 rounded-xl p-3 text-white placeholder-gray-500 focus:ring-2 focus:ring-cyan-500 focus:border-transparent focus:outline-none transition-all duration-200 hover:bg-white/10";
+  const labelClass = "block text-sm font-medium text-gray-300 mb-2 ml-1";
+  const cardClass = "bg-gray-900/60 backdrop-blur-xl border border-white/10 p-8 rounded-3xl shadow-2xl";
+
   return (
     <div className="max-w-4xl mx-auto p-4 md:p-8">
-      <h2 className="text-3xl font-bold mb-6 text-white text-center">創建您的履歷</h2>
+      <h2 className="text-3xl font-bold mb-8 text-white text-center">創建您的專業履歷</h2>
       {submitted ? (
-        <div className="bg-green-500/20 border border-green-500 text-green-300 px-4 py-3 rounded-lg text-center" role="alert">
+        <div className="bg-green-500/10 border border-green-500/50 text-green-400 px-6 py-4 rounded-2xl text-center backdrop-blur-sm">
           <strong className="font-bold">履歷已成功寄出！</strong>
           <span className="block sm:inline"> 招聘者現在可以看到您的資料了。</span>
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-8">
-          <div className="bg-gray-800 p-6 rounded-lg shadow-md">
-            <h3 className="text-xl font-semibold mb-4 text-cyan-400 border-b border-gray-700 pb-2">基本資料</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <input type="text" name="name" placeholder="姓名" value={formData.name} onChange={handleChange} required className="bg-gray-700 border border-gray-600 rounded p-2 focus:ring-2 focus:ring-cyan-500 focus:outline-none" />
-              <input type="text" name="desiredRole" placeholder="應聘職位" value={formData.desiredRole} onChange={handleChange} required className="bg-gray-700 border border-gray-600 rounded p-2 focus:ring-2 focus:ring-cyan-500 focus:outline-none" />
-              <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} required className="bg-gray-700 border border-gray-600 rounded p-2 focus:ring-2 focus:ring-cyan-500 focus:outline-none" />
-              <input type="tel" name="phone" placeholder="電話" value={formData.phone} onChange={handleChange} required className="bg-gray-700 border border-gray-600 rounded p-2 focus:ring-2 focus:ring-cyan-500 focus:outline-none" />
-              <textarea name="summary" placeholder="自我介紹" value={formData.summary} onChange={handleChange} rows={4} required className="md:col-span-2 bg-gray-700 border border-gray-600 rounded p-2 focus:ring-2 focus:ring-cyan-500 focus:outline-none" />
+          {/* 基本資料卡片 */}
+          <div className={cardClass}>
+            <h3 className="text-xl font-semibold mb-6 text-cyan-400 flex items-center gap-2">
+              <span className="w-1 h-6 bg-cyan-400 rounded-full inline-block"></span>
+              基本資料
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-1">
+                <label className={labelClass}>姓名</label>
+                <input type="text" name="name" className={inputClass} value={formData.name} onChange={handleChange} placeholder="請輸入全名" />
+              </div>
+              <div className="space-y-1">
+                <label className={labelClass}>應聘職位</label>
+                <input type="text" name="desiredRole" className={inputClass} value={formData.desiredRole} onChange={handleChange} placeholder="應聘職位" />
+              </div>
+              <div className="space-y-1">
+                <label className={labelClass}>Email</label>
+                <input type="email" name="email" className={inputClass} value={formData.email} onChange={handleChange} placeholder="Email" />
+              </div>
+              <div className="space-y-1">
+                <label className={labelClass}>電話</label>
+                <input type="tel" name="phone" className={inputClass} value={formData.phone} onChange={handleChange} placeholder="電話" />
+              </div>
+              <div className="space-y-1 md:col-span-2">
+                <label className={labelClass}>自我介紹</label>
+                <textarea name="summary" className={inputClass} value={formData.summary} onChange={handleChange} rows={4} placeholder="自我介紹" />
+              </div>
             </div>
           </div>
-          
-          <div className="bg-gray-800 p-6 rounded-lg shadow-md">
-            <h3 className="text-xl font-semibold mb-4 text-cyan-400 border-b border-gray-700 pb-2">學歷</h3>
+
+          {/* 學歷卡片 */}
+          <div className={cardClass}>
+            <h3 className="text-xl font-semibold mb-6 text-cyan-400 flex items-center gap-2">
+              <span className="w-1 h-6 bg-cyan-400 rounded-full inline-block"></span>
+              學歷
+            </h3>
             {formData.education.map((edu, index) => (
-                <div key={edu.id} className="space-y-3 mb-4 p-4 border border-gray-700 rounded-md relative">
-                    <input type="text" placeholder="學位" value={edu.degree} onChange={e => handleDynamicChange(index, e, 'degree', 'education')} className="w-full bg-gray-700 border border-gray-600 rounded p-2 focus:ring-2 focus:ring-cyan-500 focus:outline-none" />
-                    <input type="text" placeholder="學校" value={edu.school} onChange={e => handleDynamicChange(index, e, 'school', 'education')} className="w-full bg-gray-700 border border-gray-600 rounded p-2 focus:ring-2 focus:ring-cyan-500 focus:outline-none" />
-                    <input type="text" placeholder="期間 (e.g., 2016/09 - 2020/06)" value={edu.duration} onChange={e => handleDynamicChange(index, e, 'duration', 'education')} className="w-full bg-gray-700 border border-gray-600 rounded p-2 focus:ring-2 focus:ring-cyan-500 focus:outline-none" />
-                    {formData.education.length > 1 && <button type="button" onClick={() => removeDynamicItem(edu.id, 'education')} className="absolute top-2 right-2 text-red-400 hover:text-red-600">&times;</button>}
+              <div key={edu.id} className="space-y-3 mb-4 p-4 border border-white/10 rounded-xl relative bg-white/2">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="space-y-1">
+                    <label className={labelClass}>學位</label>
+                    <input type="text" className={inputClass} value={edu.degree} onChange={e => handleDynamicChange(index, e, 'degree', 'education')} placeholder="學位" />
+                  </div>
+                  <div className="space-y-1">
+                    <label className={labelClass}>學校</label>
+                    <input type="text" className={inputClass} value={edu.school} onChange={e => handleDynamicChange(index, e, 'school', 'education')} placeholder="學校" />
+                  </div>
+                  <div className="space-y-1">
+                    <label className={labelClass}>期間</label>
+                    <input type="text" className={inputClass} value={edu.duration} onChange={e => handleDynamicChange(index, e, 'duration', 'education')} placeholder="期間 (e.g., 2016/09 - 2020/06)" />
+                  </div>
                 </div>
+                {formData.education.length > 1 && <button type="button" onClick={() => removeDynamicItem(edu.id, 'education')} className="absolute top-2 right-2 text-red-400 hover:text-red-600">&times;</button>}
+              </div>
             ))}
             <button type="button" onClick={() => addDynamicItem('education')} className="text-cyan-400 hover:text-cyan-300">+ 新增學歷</button>
           </div>
 
-          <div className="bg-gray-800 p-6 rounded-lg shadow-md">
-            <h3 className="text-xl font-semibold mb-4 text-cyan-400 border-b border-gray-700 pb-2">專業技能</h3>
-            <input type="text" placeholder="輸入技能後按 Enter 或逗號" value={skillsInput} onChange={e => setSkillsInput(e.target.value)} onKeyDown={handleSkillsKeyDown} className="w-full bg-gray-700 border border-gray-600 rounded p-2 mb-2 focus:ring-2 focus:ring-cyan-500 focus:outline-none" />
-            <div className="flex flex-wrap gap-2">
+          {/* 技能卡片 */}
+          <div className={cardClass}>
+            <h3 className="text-xl font-semibold mb-6 text-cyan-400 flex items-center gap-2">
+              <span className="w-1 h-6 bg-cyan-400 rounded-full inline-block"></span>
+              專業技能
+            </h3>
+            <input type="text" placeholder="輸入技能後按 Enter 或逗號" value={skillsInput} onChange={e => setSkillsInput(e.target.value)} onKeyDown={handleSkillsKeyDown} className={inputClass + " mb-2"} />
+            <div className="flex flex-wrap gap-3">
               {formData.skills.map(skill => (
-                <span key={skill} className="flex items-center bg-gray-700 text-cyan-300 text-sm font-medium px-3 py-1 rounded-full">
+                <span key={skill} className="flex items-center bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 text-cyan-300 text-sm font-medium px-4 py-2 rounded-lg shadow-sm hover:border-cyan-500/50 transition-colors cursor-default">
                   {skill}
                   <button type="button" onClick={() => removeSkill(skill)} className="ml-2 text-red-400 hover:text-red-600">&times;</button>
                 </span>
               ))}
             </div>
           </div>
-          
+
           <CredentialVerification 
             buttonText="開始認證" 
             onVerificationComplete={handleVerificationComplete}
           />
-          <button type="submit" className="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-200 text-lg">
+          {/* 提交按鈕：漸層背景 + 陰影 */}
+          <button type="submit" className="w-full bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold py-4 px-6 rounded-xl shadow-lg shadow-cyan-500/20 transform transition hover:-translate-y-1 active:scale-95 duration-200 text-lg tracking-wide">
             提交履歷
             {verificationData && (
               <span className="ml-2 text-green-300">✓ 已認證</span>
@@ -160,9 +204,6 @@ const CandidateView: React.FC<CandidateViewProps> = ({ onNewResume }) => {
           </button>
         </form>
       )}
-
-      
-
     </div>
   );
 };
