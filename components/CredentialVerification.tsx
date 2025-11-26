@@ -2,24 +2,21 @@ import React, { useState } from "react";
 import { DocumentCheckIcon } from "./icons";
 import { VPinstance } from "@/util/axios";
 import type { VerificationData } from "../types";
-
+import { getRandomValues } from "crypto";
 interface CredentialVerificationProps {
   buttonText: string;
   onVerificationComplete?: (verificationData: VerificationData) => void;
 }
-function _uuid() {
-  var d = Date.now();
-  if (
-    typeof performance !== "undefined" &&
-    typeof performance.now === "function"
-  ) {
-    d += performance.now(); //use high-precision timer if available
-  }
-  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
-    var r = (d + Math.random() * 16) % 16 | 0;
-    d = Math.floor(d / 16);
-    return (c === "x" ? r : (r & 0x3) | 0x8).toString(16);
-  });
+// Secure UUID v4 generation
+function _uuid(): string {
+  return (`${1e7}` + -1e3 + -4e3 + -8e3 + -1e11).replace(
+    /[018]/g,
+    (c: string) =>
+      (Number(c) ^
+        (getRandomValues(new Uint8Array(1))[0] &
+          (15 >> (Number(c) / 4)))) // Get random byte
+        .toString(16)
+  );
 }
 
 const CredentialVerification: React.FC<CredentialVerificationProps> = ({
@@ -40,13 +37,13 @@ const CredentialVerification: React.FC<CredentialVerificationProps> = ({
       },
     })
       .then(function (response) {
-        console.log(response);
+        // console.log(response);
         setQrPresent(true);
         setQRimage(response.data.qrcodeImage);
         startPolling(response.data.transactionId);
       })
       .catch(function (error) {
-        console.log(error);
+        // console.log(error);
       });
   }
   async function startPolling(transactionId: string) {
@@ -60,7 +57,7 @@ const CredentialVerification: React.FC<CredentialVerificationProps> = ({
         }
       })
         .then(function (response) {
-          console.log(response.data);
+          // console.log(response.data);
           if (response.data.verifyResult) {
             e = false;
             setIsVerifying(false);
@@ -73,7 +70,7 @@ const CredentialVerification: React.FC<CredentialVerificationProps> = ({
           }
         })
         .catch(error => {
-          console.log(error);
+          // console.log(error);
           setIsVerifying(false);
         });
     }

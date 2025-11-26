@@ -20,7 +20,7 @@ const ResumeDetail: React.FC<ResumeDetailProps> = ({ resume }) => {
       });
       
       // Handle the response as needed
-      console.log('Re-verification result:', response.data);
+      // console.log('Re-verification result:', response.data);
       
       // You might want to update the resume data or show a notification here
       alert('憑證重新驗證完成');

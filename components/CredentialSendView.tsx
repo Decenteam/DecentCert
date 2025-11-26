@@ -55,7 +55,7 @@ const CredentialSendView: React.FC = () => {
       }),
     };
 
-    console.log(JSON.stringify(payload, null, 2));
+    // console.log(JSON.stringify(payload, null, 2));
 
     setSubmitted(true);
     setTimeout(() => {
