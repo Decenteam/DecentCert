@@ -70,7 +70,7 @@ const CredentialSendView: React.FC = () => {
   return (
     <div className="max-w-2xl mx-auto p-4 md:p-8 animate-fade-in">
       <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-white">發送憑證認證請求</h2>
+        <h2 className="text-3xl font-bold text-white">產生憑證</h2>
       </div>
 
       {submitted ? (
@@ -108,7 +108,7 @@ const CredentialSendView: React.FC = () => {
                 htmlFor="issuanceDate"
                 className="block text-sm font-medium text-cyan-400 mb-2"
               >
-                發行日期 (Issuance Date)
+                發行日期 
               </label>
               <input
                 type="date"
@@ -124,7 +124,7 @@ const CredentialSendView: React.FC = () => {
                 htmlFor="expiredDate"
                 className="block text-sm font-medium text-cyan-400 mb-2"
               >
-                過期日期 (Expired Date)
+                過期日期
               </label>
               <input
                 type="date"
@@ -139,7 +139,7 @@ const CredentialSendView: React.FC = () => {
 
           <div>
             <h3 className="text-lg font-medium text-cyan-400 mb-2 border-t border-gray-700 pt-4">
-              客製化欄位 (Fields)
+              客製化欄位 
             </h3>
             <div className="space-y-3">
               {fields.map((field, index) => (

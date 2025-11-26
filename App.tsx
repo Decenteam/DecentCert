@@ -34,9 +34,9 @@ const App: React.FC = () => {
           <h1 className="text-4xl font-bold text-center text-white mb-2">人才匹配平台</h1>
           <p className="text-center text-gray-400 mb-8">為招聘者與應聘者建立橋樑</p>
           <div className="flex justify-center border-b border-gray-700">
-            <TabButton tabName="recruiter" label="招聘者 (Recruiter)" />
-            <TabButton tabName="candidate" label="應聘者 (Candidate)" />
-            <TabButton tabName="credential" label="憑證 (Credentials)" />
+            <TabButton tabName="recruiter" label="招聘者" />
+            <TabButton tabName="candidate" label="應聘者" />
+            <TabButton tabName="credential" label="憑證" />
           </div>
         </header>
 

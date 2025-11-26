@@ -52,7 +52,7 @@ const ResumeDetail: React.FC<ResumeDetailProps> = ({ resume }) => {
       </div>
 
       <div className="mb-8">
-        <h2 className="text-2xl font-semibold text-gray-200 mb-4">自我介紹 (Summary)</h2>
+        <h2 className="text-2xl font-semibold text-gray-200 mb-4">自我介紹</h2>
         <p className="text-gray-300 leading-relaxed">{resume.summary}</p>
       </div>
       
@@ -61,7 +61,7 @@ const ResumeDetail: React.FC<ResumeDetailProps> = ({ resume }) => {
         <div>
           <h3 className="flex items-center gap-3 text-2xl font-semibold text-gray-200 mb-4">
             <AcademicCapIcon className="w-7 h-7 text-cyan-400"/>
-            學歷 (Education)
+            學歷 
           </h3>
            <div className="space-y-6 border-l-2 border-gray-700 ml-3 pl-6">
             {resume.education.map(edu => (
@@ -77,7 +77,7 @@ const ResumeDetail: React.FC<ResumeDetailProps> = ({ resume }) => {
         <div>
           <h3 className="flex items-center gap-3 text-2xl font-semibold text-gray-200 mb-4">
             <WrenchScrewdriverIcon className="w-7 h-7 text-cyan-400"/>
-            專業技能 (Skills)
+            專業技能
           </h3>
           <div className="flex flex-wrap gap-2">
             {resume.skills.map(skill => (
@@ -90,7 +90,7 @@ const ResumeDetail: React.FC<ResumeDetailProps> = ({ resume }) => {
           <div>
             <div className="flex items-center justify-between mb-4">
               <h3 className="flex items-center gap-3 text-2xl font-semibold text-gray-200">
-                憑證認證 (Credential Verification)
+                憑證認證
               </h3>
               <button
                 onClick={handleReVerify}
